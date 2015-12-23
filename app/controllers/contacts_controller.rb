@@ -4,7 +4,11 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
-    @contacts = Contact.all
+    if params[:letter] then
+      @contacts = Contact.by_letter(params[:letter])
+    else
+      @contacts = Contact.all
+    end
   end
 
   # GET /contacts/1
@@ -69,6 +73,6 @@ class ContactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
-      params.require(:contact).permit(:firstname, :lastname, :email)
+      params.require(:contact).permit(:firstname, :lastname, :email, :phones_attributes => [:phone, :phone_type])
     end
 end

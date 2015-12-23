@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151223032040) do
+ActiveRecord::Schema.define(version: 20151223040150) do
 
   create_table "contacts", force: :cascade do |t|
     t.string   "firstname"
@@ -21,34 +21,14 @@ ActiveRecord::Schema.define(version: 20151223032040) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "home_phones", force: :cascade do |t|
+  create_table "phones", force: :cascade do |t|
     t.integer  "contact_id"
-    t.string   "phone_type"
     t.string   "phone"
+    t.string   "phone_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "home_phones", ["contact_id"], name: "index_home_phones_on_contact_id"
-
-  create_table "mobile_phones", force: :cascade do |t|
-    t.integer  "contact_id"
-    t.string   "phone_type"
-    t.string   "phone"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "mobile_phones", ["contact_id"], name: "index_mobile_phones_on_contact_id"
-
-  create_table "work_phones", force: :cascade do |t|
-    t.integer  "contact_id"
-    t.string   "phone_type"
-    t.string   "phone"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "work_phones", ["contact_id"], name: "index_work_phones_on_contact_id"
+  add_index "phones", ["contact_id"], name: "index_phones_on_contact_id"
 
 end
