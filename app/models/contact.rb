@@ -16,4 +16,9 @@ class Contact < ActiveRecord::Base
   validates_presence_of :firstname
 
   scope :by_letter, -> (letter) { where('lastname LIKE ?', "#{letter}%").order(:lastname) }
+
+  def name
+    "#{firstname} #{lastname}"
+  end
+
 end

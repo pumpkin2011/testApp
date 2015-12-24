@@ -1,16 +1,31 @@
 require 'rails_helper'
 require 'pry'
 
+shared_examples 'public access to contacts' do
+  before :each do
+    @contact = create(:contact, firstname: 'Lawrence', lastname: 'Smith')
+  end
+
+  describe 'GET #index' do
+    it 'populates an array of contacts' do
+      get :index
+      expect(response).to render_template :index
+    end
+  end
+end
+
 describe ContactsController do
+  it_behaves_like 'public access to contacts'
+
   describe 'GET #show' do
+    let(:contact) { create(:contact) }
+
     it 'assigns the requested contact to @contact' do
-      contact = create(:contact)
       get :show, id: contact
       expect(assigns(:contact)).to eq contact
     end
 
     it "render the show template" do
-      contact = create(:contact)
       get :show, id: contact
       expect(response).to render_template :show
     end
@@ -84,6 +99,11 @@ describe ContactsController do
         post :create, contact: attributes_for(:contact, phones_attributes: phone)
         expect(response).to redirect_to contact_path(assigns(:contact))
       end
+    end
+
+    context "use subject to test" do
+      subject { create(:contact, firstname: 'Tom') }
+      specify { should eq subject }
     end
 
     context "with invalid attributes" do

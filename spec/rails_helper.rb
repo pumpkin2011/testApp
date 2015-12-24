@@ -50,6 +50,8 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
+  config.filter_run focus: true
+
   # Include FactoryGirl so we can use 'create' instead of 'FactoryGirl.create'
   config.include FactoryGirl::Syntax::Methods
 
